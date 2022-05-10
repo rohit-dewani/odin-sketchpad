@@ -18,11 +18,19 @@
 
         <div class="settings">
 
-            <button class="btn" id="clear-grid-btn">Clear Grid</button>
+            <input type="color" id="color-picker" value="#333333"/>
+            
+            <button id="chosen-color" class="active">Chosen Ink Color</button>
+
+            <button id="random-color">Random Color</button>
+
+            <button id="eraser">Eraser</button>
+
+            <button id="clear-grid-btn">Clear Grid</button>
             
             <div class="grid-size">
                 <h3>Grid Size</h3>
-                <input type="range" min="16" max="100" value="16" id="slider"> <p id="slider-output"></p>
+                <input type="range" min="10" max="100" value="20" id="slider"> <p id="slider-output"></p>
             </div>
             
         </div>

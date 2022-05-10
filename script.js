@@ -1,5 +1,39 @@
 const sketchpadContainer = document.querySelector(".sketchpad-container");
 
+const colorPicker = document.querySelector('#color-picker')
+let currentColor = colorPicker.value;
+
+colorPicker.oninput = function() {
+  currentColor = this.value;
+}
+
+const chosenColor = document.getElementById('chosen-color');
+const randomColor = document.getElementById('random-color');
+const eraser = document.getElementById('eraser');
+
+let currentMode = 'chosen';
+
+chosenColor.onclick = function() {
+  chosenColor.classList.add('active');
+  randomColor.classList.remove('active');
+  eraser.classList.remove('active');
+  currentMode = 'chosen';
+}
+
+randomColor.onclick = function() {
+  randomColor.classList.add('active');
+  chosenColor.classList.remove('active');
+  eraser.classList.remove('active');
+  currentMode = 'random';
+}
+
+eraser.onclick = function() {
+  eraser.classList.add('active');
+  chosenColor.classList.remove('active');
+  randomColor.classList.remove('active');
+  currentMode = 'eraser';
+}
+
 //create grid
 function createGrid(numberOfSquares){
   sketchpadContainer.style.cssText = 'grid-template: repeat('+ numberOfSquares +',1fr) /repeat('+ numberOfSquares +',1fr)';
@@ -28,7 +62,15 @@ sketchpadContainer.onmouseup = function() {
 //change color of grid elements
 function changeColor(e) {
     if(e.type == 'mouseover' && !mouseDown) return;
-    e.target.style.backgroundColor = '#333';
+    if(currentMode == 'chosen') e.target.style.backgroundColor = currentColor;
+    if(currentMode == 'random'){
+      const HUE = Math.floor(Math.random() * 361);
+      const SAT = Math.floor(Math.random() * 101);
+      const LIGHT = Math.floor(Math.random() * 101);
+      let color = `hsl(${HUE}, ${SAT}%, ${LIGHT}%)`;
+      e.target.style.backgroundColor = color;
+    }
+    if(currentMode == 'eraser') e.target.style.backgroundColor = "#fff";
 }
 
 //clear grid
